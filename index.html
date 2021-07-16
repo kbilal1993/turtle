@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Canvas Demo</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="main_container">
+      <h1>Turtly boi</h1>
+      <canvas id="display" width="320", height="320"></canvas>
+      <textarea id="input" rows="8", cols="20"></textarea>
+      <div class="buttons">
+        <input type="button" id="button_run" value="Run" onClick="run_script()">
+        <input type="button" id="button_reset" value="Reset" onClick="init()">
+      </div>
+      <hr>
+      <div class="instructions">
+        <span>"pen down"/"pen up" to start/stop drawing</span>
+        <br>
+        <span>"turn left"/"turn right" to turn turtle</span>
+        <br>
+        <span>"move n" to go forward n spaces</span>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
