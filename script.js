@@ -118,38 +118,51 @@ function pen(x) {
   };
 };
 
+function put(position) {
+  console.log(`Put: ${position[0]}x${position[1]}`);
+  turtle.x = parseInt(position[0]);
+  turtle.y = parseInt(position[1]);
+}
+
 // Move the turtle forward or backward
 function move(n) {
   n = parseInt(n[0]);
   console.log(`Move: ${n}`);
   switch (turtle.direction) {
     case 0: // up
-      var limit = turtle.y - n < 1 ? turtle.y + 1 : n;
+      var limit = turtle.y - n < 1 ? turtle.y : n;
       for (var x = 0; x < limit; x++) {
-        set_pixel(turtle.x, turtle.y, turtle.pen_down);
-        console.log(limit + " " + x);
-        if (limit - x > 1) {turtle.y--};
+        turtle.y--
+        if (turtle.pen_down) {
+          set_pixel(turtle.x, turtle.y, true);
+        };
       };
       break;
     case 1: // right
-      var limit = turtle.x + n > display_size.x ? display_size.x - turtle.x : n;
+      var limit = turtle.x + n > display_size.x ? display_size.x - turtle.x - 1: n;
       for (var x = 0; x < limit; x++) {
-        set_pixel(turtle.x, turtle.y, turtle.pen_down);
-        if (limit - x > 1) {turtle.x++};
+        turtle.x++;
+        if (turtle.pen_down) {
+          set_pixel(turtle.x, turtle.y, true);
+        };
       };
       break;
     case 2: // down
-      var limit = turtle.y + n > display_size.y ? display_size.y - turtle.y : n;
+      var limit = turtle.y + n > display_size.y ? display_size.y - turtle.y - 1: n;
       for (var x = 0; x < limit; x++) {
-        set_pixel(turtle.x, turtle.y, turtle.pen_down);
-        if (limit - x > 1) {turtle.y++};
+        turtle.y++;
+        if (turtle.pen_down) {
+          set_pixel(turtle.x, turtle.y, true);
+        };
       };
       break;
     case 3: // left
-      var limit = turtle.x - n < 1 ? turtle.x + 1 : n;
+      var limit = turtle.x - n < 1 ? turtle.x : n;
       for (var x = 0; x < limit; x++) {
-        set_pixel(turtle.x, turtle.y, turtle.pen_down);
-        if (limit - x > 1) {turtle.x--};
+        turtle.x--;
+        if (turtle.pen_down) {
+          set_pixel(turtle.x, turtle.y, true);
+        };
       };
       break;
   }
@@ -164,7 +177,27 @@ function turn(d) { // d = left or right
     turtle.direction = Math.abs((turtle.direction + 1 + 4) % 4); 
   } else if (d[0] == "left") {
     turtle.direction = Math.abs((turtle.direction - 1 + 4) % 4);
-  };
+  }
+  switch (d[0]) {
+    case "right":
+      turtle.direction = Math.abs((turtle.direction + 5) % 4);
+      break;
+    case "left":
+      turtle.direction = Math.abs((turtle.direction + 3) % 4);
+      break;
+    case "north":
+      turtle.direction = 0;
+      break;
+    case "south":
+      turtle.direction = 2;
+      break;
+    case "east":
+      turtle.direction = 1;
+      break;
+    case "west":
+      turtle.direction = 3;
+      break;
+  }
   draw();
 }
 
@@ -175,6 +208,7 @@ let turtle_functions = {
   "pen":  pen,
   "turn": turn,
   "move": move,
+  "put": put
 };
 
 function parse(str) {
