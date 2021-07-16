@@ -6,7 +6,7 @@ let pixel_size = 16; // MUST BE DIVISIBLE BY CANVAS DIMENSIONS
 let display_size = {x: c.width / pixel_size, y: c.height / pixel_size};
 
 // Globals for turtle
-let turtle = {
+var turtle = {
   x: Math.floor(display_size.x / 2), 
   y: display_size.y - 2, 
   direction: 0, 
@@ -122,53 +122,34 @@ function pen(x) {
 function move(n) {
   n = parseInt(n[0]);
   console.log(`Move: ${n}`);
-  function clamp(nn, axis) { // true = horizontal
-    if (axis) {
-      if (nn < 0) {
-        return 0;
-      }
-      if (nn > display_size.x) {
-        return display_size.x;
-      }
-      return nn;
-    } else {
-      if (nn < 0) {
-        return 0;
-      }
-      if (nn > display_size.y) {
-        return display_size.y;
-      };
-      return nn;
-    };
-  };
-  
   switch (turtle.direction) {
     case 0: // up
-      var limit = clamp(n, false);
+      var limit = turtle.y - n < 1 ? turtle.y + 1 : n;
       for (var x = 0; x < limit; x++) {
         set_pixel(turtle.x, turtle.y, turtle.pen_down);
-        turtle.y--;
+        console.log(limit + " " + x);
+        if (limit - x > 1) {turtle.y--};
       };
       break;
     case 1: // right
-      var limit = clamp(n, false);
+      var limit = turtle.x + n > display_size.x ? display_size.x - turtle.x : n;
       for (var x = 0; x < limit; x++) {
         set_pixel(turtle.x, turtle.y, turtle.pen_down);
-        turtle.x++;
+        if (limit - x > 1) {turtle.x++};
       };
       break;
     case 2: // down
-      var limit = clamp(n, false);
+      var limit = turtle.y + n > display_size.y ? display_size.y - turtle.y : n;
       for (var x = 0; x < limit; x++) {
         set_pixel(turtle.x, turtle.y, turtle.pen_down);
-        turtle.y++;
+        if (limit - x > 1) {turtle.y++};
       };
       break;
     case 3: // left
-      var limit = clamp(n, false);
+      var limit = turtle.x - n < 1 ? turtle.x + 1 : n;
       for (var x = 0; x < limit; x++) {
         set_pixel(turtle.x, turtle.y, turtle.pen_down);
-        turtle.x--;
+        if (limit - x > 1) {turtle.x--};
       };
       break;
   }
