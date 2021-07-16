@@ -43,7 +43,7 @@ function draw() {
     for (let x = 0; x < display_size.x; x++) {
       ctx.beginPath();
       ctx.rect(x * pixel_size, y * pixel_size, pixel_size, pixel_size);
-      ctx.fillStyle = "white";
+      ctx.fillStyle = x % 2 == y % 2 ? "#ffffff" : "#ddddff";
       ctx.fill();
       if (framebuffer[y][x]) {
         ctx.beginPath();
