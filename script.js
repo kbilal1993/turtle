@@ -173,11 +173,6 @@ function move(n) {
 // The math used here seems odd, but essentially emulates a circular list
 function turn(d) { // d = left or right
   console.log(`Turn: ${d}`);
-  if (d[0] == "right") {
-    turtle.direction = Math.abs((turtle.direction + 1 + 4) % 4); 
-  } else if (d[0] == "left") {
-    turtle.direction = Math.abs((turtle.direction - 1 + 4) % 4);
-  }
   switch (d[0]) {
     case "right":
       turtle.direction = Math.abs((turtle.direction + 5) % 4);
